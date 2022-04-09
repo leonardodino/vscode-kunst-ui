@@ -25,7 +25,7 @@ define([
         let trafficLightDimensions = function () {
             let size = {
                 width: 77,
-                height: 37,
+                height: 35,
             }
             return {
                 width: size.width / browser.getZoomFactor(),
@@ -240,7 +240,7 @@ define([
 
         let CustomizeActivityBarLegacy1 = class CustomizeActivityBarLegacy1 {
             constructor(configurationService, themeService) {
-                if (configurationService.getValue("customizeUI.activityBar") === "bottom") {
+                if ("top" === "bottom") {
                     moveActivityBarToBottomLegacy1(themeService.getTheme());
                 }
             }
@@ -445,7 +445,7 @@ define([
 
         let CustomizeActivityBarLegacy2 = class CustomizeActivityBarLegacy2 {
             constructor(configurationService, telemetry, themeService) {
-                if (configurationService.getValue("customizeUI.activityBar") === "bottom") {
+                if ("top" === "bottom") {
                     moveActivityBarToBottomLegacy2(themeService.getTheme());
                 }
             }
@@ -541,7 +541,7 @@ define([
                 // Not ideal, but changing layout because of border seems to be bit of overkill
                 container.style.marginTop = borderColor ? "-1px" : null;
 
-                if (this.configurationService.getValue("customizeUI.statusBarPosition") === "top" && this.configurationService.getValue("customizeUI.activityBar") == "top") {
+                if ("bottom" === "top" && "top" == "top") {
                     container.style.backgroundColor = this.getColor("tab.inactiveBackground")
                     container.style.backgroundColor = this.getColor("tab.inactiveBackground")
                 }
@@ -869,17 +869,15 @@ define([
 
         let CustomizeActivityBarLegacy3 = class CustomizeActivityBarLegacy3 {
             constructor(configurationService, telemetry, themeService) {
-                let activityBarPosition = configurationService.getValue("customizeUI.activityBar");
+                let activityBarPosition = "top";
                 switch (activityBarPosition) {
                     case "top":
                     case "bottom":
                         let theme = themeService.getColorTheme ? themeService.getColorTheme() : themeService.getTheme();
                         let hideSettings = configurationService.getValue("customizeUI.activityBarHideSettings");
-                        let statusBarPosition = configurationService.getValue("customizeUI.statusBarPosition")
-                            || (configurationService.getValue("customizeUI.moveStatusbar")
-                                ? "under-panel"
-                                : "bottom");
+                        let statusBarPosition = "bottom";
                         document.body.classList.add("status-bar-at-" + statusBarPosition);
+                        document.body.classList[hideSettings ? 'add' : 'remove']("customize-ui-hide-activity-bar-settings");
                         moveActivityBarToPositionLegacy3(layoutState, theme, hideSettings, activityBarPosition, statusBarPosition);
                         break;
                     case "narrow": /* TODO: narrow sized activity bar */
@@ -893,17 +891,15 @@ define([
         let CustomizeActivityBar = class CustomizeActivityBar {
             constructor(configurationService, telemetry, themeService) {
                 require(['vs/workbench/browser/layoutState'], function (layoutState) {
-                    let activityBarPosition = configurationService.getValue("customizeUI.activityBar");
+                    let activityBarPosition = "top";
                     switch (activityBarPosition) {
                         case "top":
                         case "bottom":
                             let theme = themeService.getColorTheme ? themeService.getColorTheme() : themeService.getTheme();
                             let hideSettings = configurationService.getValue("customizeUI.activityBarHideSettings");
-                            let statusBarPosition = configurationService.getValue("customizeUI.statusBarPosition")
-                                || (configurationService.getValue("customizeUI.moveStatusbar")
-                                    ? "under-panel"
-                                    : "bottom");
+                            let statusBarPosition = "bottom";
                             document.body.classList.add("status-bar-at-" + statusBarPosition);
+                            document.body.classList[hideSettings ? 'add' : 'remove']("customize-ui-hide-activity-bar-settings");
                             moveActivityBarToPosition(layoutState, theme, hideSettings, activityBarPosition, statusBarPosition);
                             break;
                         case "narrow": /* TODO: narrow sized activity bar */

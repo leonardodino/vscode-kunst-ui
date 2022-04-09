@@ -11,7 +11,7 @@ define([
 
     let MainProcessTitleBar = class MainProcessTitleBar {
         constructor(configurationService) {
-            const titleBar = configurationService.getValue("customizeUI.titleBar");
+            const titleBar = "inline";
 
             if (titleBar === "inline" || titleBar === "frameless") {
                 let self = this;

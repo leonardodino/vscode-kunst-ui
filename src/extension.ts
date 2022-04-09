@@ -65,11 +65,11 @@ class Extension {
 	}
 
 	private get haveBottomActivityBar() {
-		return vscode.workspace.getConfiguration().get("customizeUI.activityBar") === "bottom";
+		return false
 	}
 
 	private get haveInlineTitleBar() {
-		return vscode.workspace.getConfiguration().get("customizeUI.titleBar") === "inline";
+		return true;
 	}
 
 	private get haveFontCustomizations() {
