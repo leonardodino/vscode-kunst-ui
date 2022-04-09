@@ -1,6 +1,6 @@
 define([
     "exports",
-    "customize-ui/utils",
+    "kunst-ui/utils",
     "vs/workbench/browser/parts/compositeBar",
     "vs/base/browser/ui/actionbar/actionbar",
     "vs/workbench/browser/parts/activitybar/activitybarPart",
@@ -874,7 +874,7 @@ define([
                     case "top":
                     case "bottom":
                         let theme = themeService.getColorTheme ? themeService.getColorTheme() : themeService.getTheme();
-                        let hideSettings = configurationService.getValue("customizeUI.activityBarHideSettings");
+                        let hideSettings = configurationService.getValue("kunst-ui.activityBarHideSettings");
                         let statusBarPosition = "bottom";
                         document.body.classList.add("status-bar-at-" + statusBarPosition);
                         document.body.classList[hideSettings ? 'add' : 'remove']("customize-ui-hide-activity-bar-settings");
@@ -896,7 +896,7 @@ define([
                         case "top":
                         case "bottom":
                             let theme = themeService.getColorTheme ? themeService.getColorTheme() : themeService.getTheme();
-                            let hideSettings = configurationService.getValue("customizeUI.activityBarHideSettings");
+                            let hideSettings = configurationService.getValue("kunst-ui.activityBarHideSettings");
                             let statusBarPosition = "bottom";
                             document.body.classList.add("status-bar-at-" + statusBarPosition);
                             document.body.classList[hideSettings ? 'add' : 'remove']("customize-ui-hide-activity-bar-settings");

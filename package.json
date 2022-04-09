@@ -1,16 +1,16 @@
 {
-	"name": "customize-ui",
-	"displayName": "Customize UI",
-	"description": "Advanced VSCode user interface customizations. Very experimental.",
+	"name": "kunst-ui",
+	"displayName": "kunst-ui",
+	"description": "Opinionated VSCode user interface customizations for macOS. Very experimental.",
 	"version": "0.1.61",
-	"publisher": "iocave",
+	"publisher": "leonardodino",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/iocave/customize-ui"
+		"url": "https://github.com/leonardodino/vscode-kunst-ui"
 	},
 	"engines": {
-		"vscode": "^1.34.0"
+		"vscode": "^1.66.0"
 	},
 	"categories": [
 		"Themes",
@@ -48,31 +48,31 @@
 		],
 		"configuration": {
 			"type": "object",
-			"title": "Customize UI",
+			"title": "kunst-ui",
 			"properties": {
-				"customizeUI.activityBarHideSettings": {
+				"kunst-ui.activityBarHideSettings": {
 					"type": "boolean",
 					"description": "Hides settings and accounts icon in activity bar if"
 				},
-				"customizeUI.stylesheet": {
+				"kunst-ui.stylesheet": {
 					"type": "object",
 					"markdownDescription": "Additional stylesheet definitions.\n```\n{\n  \".monaco-workbench .window-title\" :\n     \"font-size: 12px !important\"\n}\n```\n"
 				},
-				"customizeUI.listRowHeight": {
+				"kunst-ui.listRowHeight": {
 					"type": "integer",
 					"description": "Height of rows in lists and trees in pixels (defaults to 22)"
 				},
-				"customizeUI.font.regular": {
+				"kunst-ui.font.regular": {
 					"type": "string",
 					"default": "BlinkMacSystemFont",
 					"description": "Replacement font family for regular UI font"
 				},
-				"customizeUI.font.monospace": {
+				"kunst-ui.font.monospace": {
 					"type": "string",
 					"default": "SF Mono",
 					"description": "Replacement font family for monospace UI font"
 				},
-				"customizeUI.fontSizeMap": {
+				"kunst-ui.fontSizeMap": {
 					"default": {
 						"13px": "11px",
 						"monospace": "12px"
@@ -140,6 +140,7 @@
 	"extensionKind": [
 		"ui"
 	],
+	"qna": false,
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
@@ -151,10 +152,5 @@
 		"@types/vscode": "^1.34.0",
 		"tslint": "^5.12.1",
 		"typescript": "^3.3.1"
-	},
-	"__metadata": {
-		"id": "ac44dd75-bdb7-433b-9d86-23f9f070c07a",
-		"publisherDisplayName": "iocave",
-		"publisherId": "23f4e00e-db63-40fd-9f68-245f064ca7f5"
 	}
 }
