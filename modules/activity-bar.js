@@ -1,6 +1,6 @@
 define([
     "exports",
-    "customize-ui/utils",
+    "kunst-ui/utils",
     "vs/workbench/browser/parts/compositeBar",
     "vs/base/browser/ui/actionbar/actionbar",
     "vs/workbench/browser/parts/activitybar/activitybarPart",

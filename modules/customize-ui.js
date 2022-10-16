@@ -2,10 +2,10 @@ define([
     "module",
     "require",
     "vs/platform/instantiation/common/instantiationService",
-    "customize-ui/utils",
-    "customize-ui/activity-bar",
-    "customize-ui/fonts",
-    "customize-ui/title-bar",
+    "kunst-ui/utils",
+    "kunst-ui/activity-bar",
+    "kunst-ui/fonts",
+    "kunst-ui/title-bar",
 ], function (module, require, insantiationService, utils, activityBar, fonts, titleBar) {
     'use strict';
 

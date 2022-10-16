@@ -5,7 +5,7 @@ define([
     "vs/code/electron-main/app",
     "vs/base/common/platform",
     "vs/platform/configuration/common/configuration",
-    "customize-ui/utils"
+    "kunst-ui/utils"
 ], function (module, require, electron, app, platform, configuration, utils) {
     'use strict';
 
