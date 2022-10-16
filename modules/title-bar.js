@@ -16,6 +16,32 @@ define([
 ], function (exports, utils, configuration, platform, browser, layout, activitybarPart, colorRegistry,
     part, compositePart, ttt, titleControl, editor, electron) {
 
+    /** @type {(color: string) => string} */
+    const getTransparent = (color) => {
+        if (color.startsWith('#')) {
+            const hex = color.slice(1)
+            if (hex.length === 3) return `#${hex}0`
+            if (hex.length === 4) return `#${hex.slice(0, 3)}0`
+            if (hex.length === 6) return `#${hex}00`
+            if (hex.length === 8) return `#${hex.slice(0, 6)}00`
+        }
+        if (color.startsWith('rgb(') || color.startsWith('hsl(')) {
+            const sep = color.includes(',') ? ',' : ' '
+            return color.replace('(', 'a(').replace(')', `${sep}0)`)
+        }
+        if (color.startsWith('rgba(') || color.startsWith('hsla(')) {
+            const sep = color.includes(',') ? ',' : ' '
+            return color.replace(/\d+\s*\)/, `${sep}0)`)
+        }
+
+        return color // can't make it transparent :shrug:
+    }
+    /** @type {(color: unknown) => string} */
+    const makeGradient = (color) => {
+        if (typeof color !== 'string') return color
+        return `linear-gradient(to right, ${getTransparent(color)} 0, ${color} 20px)`
+    }
+
     let CustomizeTitleBar = class CustomizeTitleBar {
         constructor(configurationService, nativeHostService) {
 
@@ -23,8 +49,8 @@ define([
             this.nativeHostService = nativeHostService;
 
             if (platform.isMacintosh) {
-                const titleBar = configurationService.getValue("customizeUI.titleBar");
-                const statusBar = configurationService.getValue("customizeUI.statusBarPosition");
+                const titleBar = "inline";
+                const statusBar = "bottom";
                 if (titleBar === "inline" || titleBar === "frameless") {
                         this.init(titleBar === "inline" && statusBar !== "top");
                 }
@@ -55,7 +81,7 @@ define([
         trafficLightDimensions() {
             let size = {
                 width: 77,
-                height: 37,
+                height: 35,
             }
             return {
                 width: size.width / browser.getZoomFactor(),
@@ -68,15 +94,15 @@ define([
         }
 
         activityBarIsVertical() {
-            return this.configurationService.getValue("customizeUI.activityBar") !== "bottom";
+            return false;
         }
 
         activityBarIsWide() {
-            return this.configurationService.getValue("customizeUI.activityBar") === "wide";
+            return false;
         }
 
         statusBarOnTop() {
-            return this.configurationService.getValue("customizeUI.statusBarPosition") == "top";
+            return false;
         }
 
         activityBarIsVisible() {
@@ -126,6 +152,7 @@ define([
                     let parent = args[0];
                     this._placeholder = document.createElement('div');
                     this._placeholder.classList.add("activity-bar-placeholder");
+                    parent.addEventListener("dblclick", () => self.windowService.onWindowTitleDoubleClick());
 
                     if (!self.activityBarIsWide()) {
                         parent.appendChild(this._placeholder);
@@ -156,7 +183,7 @@ define([
                 if (this.id === "workbench.parts.sidebar") {
                     let c = this.partLayout.__proto__.constructor;
                     let prev = c.TITLE_HEIGHT;
-                    c.TITLE_HEIGHT = self.trafficLightDimensions().height;
+                    c.TITLE_HEIGHT = 0
                     let res = original();
                     c.TITLE_HEIGHT = prev;
                     return res;
@@ -204,8 +231,9 @@ define([
                 utils.override(compositePart.CompositePart, "updateStyles", function (original) {
                     original();
                     if (this._titleArea) {
-                        let color = this.getColor("inlineTitleBar.background");
-                        this._titleArea.style.backgroundColor = color;
+                        let color = this.getColor("activityBar.background");
+                        this._titleArea.style.background = makeGradient(color);
+                        return
                         let padding = 0;
                         if (self.isFullScreen() || self.layout.getSideBarPosition() == 1) {
                             padding = 8; // default
@@ -323,8 +351,6 @@ define([
                 !this.isFullScreen() &&
                 (this.sideBarHidden() || this.sideBarPosition() == 1 /* rigth */)) {
                 let val = this.trafficLightDimensions().width;
-                if (this.activityBarIsVisible() && this.sideBarPosition() != 1)
-                    val -= this.activityBarWidth();
                 node.style.width = `${val}px`;
             } else {
                 node.style.width = "0px";

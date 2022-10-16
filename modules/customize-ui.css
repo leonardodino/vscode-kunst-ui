@@ -243,8 +243,8 @@ body.activity-bar-at-bottom .monaco-workbench .activitybar > .content .monaco-ac
 }
 
 body.activity-bar-at-bottom .monaco-workbench .activitybar .monaco-action-bar .action-label {
-    -webkit-mask-size: 19px 19px !important;
-    font-size: 17.5px !important;
+    -webkit-mask-size: 14px 14px !important;
+    font-size: 14px !important;
 }
 
 body.activity-bar-at-bottom .monaco-workbench .activitybar>.content .monaco-action-bar .badge {
@@ -293,10 +293,6 @@ body.activity-bar-at-bottom .monaco-workbench .activitybar > .content .global-ac
     margin-right: var(--activity-bar-side-margin);
 }
 
-body.activity-bar-at-bottom:not(.status-bar-at-top) .monaco-workbench .part.statusbar {
-    height: 20px !important;
-}
-
 body.status-bar-at-top .monaco-workbench .part.statusbar {
     padding-left: calc(var(--traffic-lights-width) - 7px);
     padding-right: 0;
@@ -335,11 +331,6 @@ body.status-bar-at-top .statusbar-item a {
 
 body.status-bar-at-top .statusbar-item.has-background-color.first-visible-item {
     margin-left: 6px;
-}
-
-body.activity-bar-at-bottom:not(.status-bar-at-top) .monaco-workbench .part.statusbar>.statusbar-item,
-body.activity-bar-at-bottom:not(.status-bar-at-top) .monaco-workbench .part.statusbar>.items-container>.statusbar-item {
-    line-height: 20px !important;
 }
 
 body.activity-bar-at-bottom .monaco-workbench .activitybar .active-item-indicator {
@@ -402,12 +393,6 @@ body.inline-title-bar .sidebar .title-label {
     line-height: var(--traffic-lights-height) !important;
 }
 
-body.inline-title-bar .sidebar .title-actions {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 /* Make debug buttons slightly smaller */
 body.inline-title-bar .part>.title>.title-actions .action-label {
     min-width: 24px !important;
@@ -416,21 +401,6 @@ body.inline-title-bar .part>.title>.title-actions .action-label {
 /* Allow dragging on side-bar title... */
 body.inline-title-bar .monaco-workbench:not(.fullscreen) .sidebar .composite.title {
     -webkit-app-region: drag;
-}
-
-body.inline-title-bar .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container,
-body.inline-title-bar .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab,
-body.inline-title-bar .monaco-workbench .part.editor>.content .editor-group-container>.title .editor-actions {
-    height: var(--traffic-lights-height) !important;
-    line-height: var(--traffic-lights-height) !important;
-}
-
-body.inline-title-bar .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab .monaco-icon-label:before {
-    height: var(--traffic-lights-height) !important;
-}
-
-body.inline-title-bar .monaco-workbench .part>.title>.title-actions {
-    height: calc(var(--traffic-lights-height) - 1px) !important;
 }
 
 body.inline-title-bar div.dragging-area-top {
@@ -452,4 +422,58 @@ body.inline-title-bar .monaco-workbench:not(.fullscreen) .label-container.no-tab
 body.inline-title-bar .monaco-workbench:not(.fullscreen) .label-container.no-tabs .monaco-breadcrumb-item,
 body.inline-title-bar .monaco-workbench:not(.fullscreen) .label-container.no-tabs .monaco-icon-label-container {
     -webkit-app-region: no-drag;
+}
+
+:root {
+    --activity-bar-custom-height: 35px !important;
+    --activity-bar-action-height: 26px !important;
+    --activity-bar-action-width: 28px !important;
+}
+
+#workbench\.parts\.activitybar.activitybar.left,
+#workbench\.parts\.editor.editor .content.empty {
+    -webkit-app-region: drag;
+}
+
+#workbench\.parts\.activitybar.activitybar.left .content {
+    box-sizing: border-box;
+    padding: 5px 5px 5px calc(var(--traffic-lights-width) - 7px);
+    justify-content: flex-start;
+}
+
+body.customize-ui-hide-activity-bar-settings #workbench\.parts\.activitybar.activitybar.left .content > div:not(.composite-bar) .monaco-action-bar {
+    display: none;
+}
+
+#workbench\.parts\.activitybar.activitybar.left .actions-container,
+#workbench\.parts\.activitybar.activitybar.left .actions-container * {
+    -webkit-app-region: no-drag;
+}
+
+#workbench\.parts\.sidebar.part.sidebar.left > .composite.title {
+    position: absolute !important;
+    z-index: 1 !important;
+    padding: 1px 4px 0px 8px;
+    height: calc(var(--activity-bar-custom-height) - 1px) !important;
+    top: calc(var(--activity-bar-custom-height) * -1) !important;
+    right: 0 !important;
+    display: none !important;
+}
+
+.split-view-container:hover > .split-view-view > #workbench\.parts\.sidebar.part.sidebar.left > .composite.title,
+.split-view-container:focus-within > .split-view-view > #workbench\.parts\.sidebar.part.sidebar.left > .composite.title {
+    display: flex !important;
+}
+
+#workbench\.parts\.sidebar.part.sidebar.left > .composite.title .title-label {
+    display: none;
+}
+
+#workbench\.parts\.sidebar.part.sidebar.left > .composite.title .title-actions {
+    height: calc(var(--activity-bar-custom-height) - 1px) !important;
+}
+
+#workbench\.parts\.sidebar.part.sidebar.left > .composite.title .title-actions .monaco-select-box {
+    min-width: 0;
+    width: 0;
 }
