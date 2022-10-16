@@ -1,6 +1,6 @@
 define([
     "exports",
-    "customize-ui/utils",
+    "kunst-ui/utils",
     "vs/workbench/contrib/files/browser/views/explorerViewer",
     "vs/workbench/contrib/files/browser/views/openEditorsView",
     "vs/workbench/contrib/search/browser/searchResultsView",
@@ -20,26 +20,26 @@ define([
         constructor(configurationService) {
             this.configurationService = configurationService;
 
-            let rowHeight = this.configurationService.getValue("customizeUI.listRowHeight") || 22;
+            let rowHeight = this.configurationService.getValue("kunst-ui.listRowHeight") || 22;
             this.updateRowHeight(rowHeight);
 
-            let fontSize = this.configurationService.getValue("customizeUI.fontSizeMap") || {};
+            let fontSize = this.configurationService.getValue("kunst-ui.fontSizeMap") || {};
             this.updateFontSize(fontSize);
 
             if (rowHeight <= 20)
                 document.body.classList.add("row-height-lte20");
 
-            let styleSheet = this.configurationService.getValue("customizeUI.stylesheet");
+            let styleSheet = this.configurationService.getValue("kunst-ui.stylesheet");
             if (styleSheet instanceof Object) {
                 this.addCustomStyleSheet(styleSheet);
             }
 
-            let fontFamily = this.configurationService.getValue("customizeUI.font.regular");
+            let fontFamily = this.configurationService.getValue("kunst-ui.font.regular");
             if (typeof (fontFamily) == "string" && fontFamily.length > 0) {
                 this.setFontFamily(fontFamily);
             }
 
-            let monospaceFamily = this.configurationService.getValue("customizeUI.font.monospace");
+            let monospaceFamily = this.configurationService.getValue("kunst-ui.font.monospace");
             if (typeof (monospaceFamily) == "string" && monospaceFamily.length > 0) {
                 this.setMonospaceFontFamily(monospaceFamily);
             }

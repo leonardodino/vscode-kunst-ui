@@ -31,7 +31,7 @@ class Extension {
 		this.context = context;
 
 		context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-			if (e.affectsConfiguration('customizeUI.')) {
+			if (e.affectsConfiguration('kunst-ui.')) {
 				this.configurationChanged(e);
 			}
 		}));
@@ -73,13 +73,13 @@ class Extension {
 	}
 
 	private get haveFontCustomizations() {
-		return vscode.workspace.getConfiguration().get("customizeUI.fontSizeMap") !== undefined &&
-			vscode.workspace.getConfiguration().get("customizeUI.font.regular") !== undefined ||
-			vscode.workspace.getConfiguration().get("customizeUI.font.monospace") !== undefined;
+		return vscode.workspace.getConfiguration().get("kunst-ui.fontSizeMap") !== undefined &&
+			vscode.workspace.getConfiguration().get("kunst-ui.font.regular") !== undefined ||
+			vscode.workspace.getConfiguration().get("kunst-ui.font.monospace") !== undefined;
 	}
 
 	private get haveStylesheetCustomizations() {
-		return vscode.workspace.getConfiguration().get("customizeUI.stylesheet") !== undefined;
+		return vscode.workspace.getConfiguration().get("kunst-ui.stylesheet") !== undefined;
 	}
 
 	async start() {
@@ -130,16 +130,16 @@ class Extension {
 		if (monkeyPatch !== undefined) {
 			await monkeyPatch.activate();
 			let exports: API = monkeyPatch.exports;
-			exports.contribute("iocave.customize-ui",
+			exports.contribute("leonardodino.kunst-ui",
 				{
 					folderMap: {
-						"customize-ui": this.modulesPath,
+						"kunst-ui": this.modulesPath,
 					},
 					browserModules: [
-						"customize-ui/customize-ui"
+						"kunst-ui/customize-ui"
 					],
 					mainProcessModules: [
-						"customize-ui/title-bar-main-process",
+						"kunst-ui/title-bar-main-process",
 						// This needs to be here in order to not delay loading of title-bar-main-process (which depends on it) 
 						"customize-ui/utils",
 					]
@@ -171,7 +171,7 @@ class Extension {
 					vscode.commands.executeCommand("iocave.monkey-patch.enable");
 				}
 			} else {
-				if (e.affectsConfiguration("customizeUI.titleBar")) {
+				if (e.affectsConfiguration("kunst-ui.titleBar")) {
 					let enabled = this.haveInlineTitleBar;
 					if (enabled) {
 						let titleBarStyle = vscode.workspace.getConfiguration().get("window.titleBarStyle");
@@ -221,7 +221,7 @@ class Coffee {
 		let b = await vscode.window.showInformationMessage(
 					"Hey! " +
 					"Customize UI requires constant maintenance to keep up with vscode changes. " +
-					"If you like what it does, please consider buying me a coffee.",
+					"If you like what it does, please consider buying the original author a coffee.",
 					...buttons);
 		if (b === buttons[0]) {
 			vscode.env.openExternal(vscode.Uri.parse("https://www.buymeacoffee.com/matt1"));
