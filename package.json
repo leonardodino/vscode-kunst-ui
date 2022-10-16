@@ -50,42 +50,9 @@
 			"type": "object",
 			"title": "Customize UI",
 			"properties": {
-				"customizeUI.activityBar": {
-					"type": "string",
-					"description": "Position activity bar below the sidebar or make match traffic lights dimensions (for inline title bar)",
-					"enum": [
-						"regular",
-						"top",
-						"bottom",
-						"wide"
-					]
-				},
-				"customizeUI.moveStatusbar": {
-					"type": "boolean",
-					"description": "Move statusbar under panel.",
-					"deprecationMessage": "Use customizeUI.statusbarPosition: under-panel instead"
-				},
-				"customizeUI.statusBarPosition": {
-					"type": "string",
-					"default": null,
-					"enum": [
-						"top",
-						"bottom",
-						"under-panel"
-					]
-				},
 				"customizeUI.activityBarHideSettings": {
 					"type": "boolean",
-					"description": "Hides settings and accounts icon in activity bar if positioned bottom"
-				},
-				"customizeUI.titleBar": {
-					"type": "string",
-					"description": "Inline title bar style for macOS",
-					"enum": [
-						"regular",
-						"inline",
-						"frameless"
-					]
+					"description": "Hides settings and accounts icon in activity bar if"
 				},
 				"customizeUI.stylesheet": {
 					"type": "object",
@@ -97,10 +64,12 @@
 				},
 				"customizeUI.font.regular": {
 					"type": "string",
+					"default": "BlinkMacSystemFont",
 					"description": "Replacement font family for regular UI font"
 				},
 				"customizeUI.font.monospace": {
 					"type": "string",
+					"default": "SF Mono",
 					"description": "Replacement font family for monospace UI font"
 				},
 				"customizeUI.fontSizeMap": {
